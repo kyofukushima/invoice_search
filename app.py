@@ -7,7 +7,34 @@ import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
 import re
-df = pd.read_csv('invoice_output.csv', usecols=lambda column: column not in ['Unnamed: 0'])
+
+header_dict = {"sequenceNumber":'int64',
+          "registratedNumber": 'str',
+          "process": 'int64',
+          "correct": 'int64',
+          "kind": 'float64',
+          "country": 'float64',
+          "latest": 'int64',
+          "registrationDate": 'object',
+          "updateDate": 'object',
+          "disposalDate": 'object',
+          "expireDate": 'object',
+          "address": 'str',
+          "addressPrefectureCode": 'object',
+          "addressCityCode": 'object',
+          "addressRequest": 'object',
+          "addressRequestPrefectureCode": 'object',
+          "addressRequestCityCode": 'object',
+          "kana": 'str',
+          "name": 'str',
+          "addressInside": 'str',
+          "addressInsidePrefectureCode": 'object',
+          "addressInsideCityCode": 'object',
+          "tradeName": 'str',
+          "popularName_previousName": 'str',
+}
+
+df = pd.read_csv('invoice_output.csv', usecols=list(header_dict.keys()),dtype=header_dict)
 df = df.loc[~df['name'].isnull()]
 st.set_page_config(layout="wide")
 # ----------------
